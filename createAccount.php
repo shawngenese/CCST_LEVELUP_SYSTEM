@@ -4,12 +4,12 @@ include "config.php";
 
 if (isset($_POST['register'])) {
     $email = $_POST['email'];
-    $pass = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $hashed_pass = password_hash($pass, PASSWORD_DEFAULT);
+    // $hashed_pass = password_hash($password, PASSWORD_DEFAULT);
     
     $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
-    $stmt->bind_param("ss", $email, $hashed_pass);
+    $stmt->bind_param("ss", $email, $password);
 
     if ($stmt->execute()) {
         // echo '<script>alert("Account Created")</script>';
