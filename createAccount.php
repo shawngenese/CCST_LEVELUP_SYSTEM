@@ -4,7 +4,8 @@ include "config.php";
 
 if (isset($_POST['register'])) {
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password = $_POST['password'];
+    
 
     // $hashed_pass = password_hash($password, PASSWORD_DEFAULT);
     

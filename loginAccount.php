@@ -1,6 +1,6 @@
 <?php
 
-
+session_start();
 include "config.php";
 
 if (isset($_POST['login'])) {
@@ -13,15 +13,14 @@ if (isset($_POST['login'])) {
     
         if(password_verify($password,$user['password'])){
             $_SESSION['email'] = $user['email'];
-            $_SESSION['password'] = $user['password'];
-            
-
-            if ($role === 'admin') {
+            $_SESSION['role'] = $user['role'];
+        
+            if ($user['role'] === 'admin') {
                 header("Location: admin/dashboard.php");
                 echo "Login successful";
             }
             else {
-                header("Location: index.php");
+                header("Location: user/dashboard.php");
                 echo "user login success";
             }
 

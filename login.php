@@ -5,28 +5,40 @@ include "config.php";
 
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
-    $password = trim($_POST['password']);
+    $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = mysqli_query($conn, $sql);
     if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc();
+        $row = mysqli_fetch_assoc($result);
 
-        if (password_verify($password, $user['password'])) {
+        $user = $row['email'];
+        $pass = $row['password'];
 
-            $_SESSION['email'] = $user['email'];
-            $_SESSION['role'] = $user['role'];
+        if ($user == $email && $pass == $password) {
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['role'] = $row['role'];
 
-            header("Location: admin/dashboard.php");
-            exit();
+            if ($row['role'] === 'admin') {
+                header("Location: admin/dashboard.php");
+                exit();
+            }
+            else {
+                header("Location: user/dashboard.php");
+                exit();
+            }
         } else {
-            echo "wrong password";
+            $_SESSION['error'] = "Wrong password.";
+            header("Location: login.php");
+            exit();
         }
-    } else {
-        echo "no user found";
+
+
+    }
+    else {
+        $_SESSION['error'] = "No user found.";
+        header("Location: login.php");
+        exit(); 
     }
 }
 ?>
@@ -38,7 +50,7 @@ if (isset($_POST['login'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>Login - CCST LEVELUP</title>
+    <title>LOGIN - CCST LEVELUP</title>
   </head>
   <body class="bg-light">
     <div class="container d-flex align-items-center justify-content-center flex-column" style="min-height: 100dvh;">
