@@ -1,20 +1,7 @@
-<?php 
-
+<?php
 session_start();
-include "config.php";
-include "controller/register.php";
+include "createAccount.php";
 
-// $errors = [
-//     'login' => $_SESSION['login_error'] ?? '',
-//     'register' => $_SESSION['register_error'] ?? ''
-// ];
-
-// $activeForm = $_SESSION['active_form'] 'active' ;
-// session_unset();
-
-// function isActiveForm($formName,$activeForm) {
-//     return $formName === $activeForm ? 'active' : '';
-// }
 ?>
 
 <!doctype html>
@@ -28,7 +15,7 @@ include "controller/register.php";
   <body class="bg-light">
     <div class="container d-flex align-items-center justify-content-center flex-column" style="min-height: 100dvh;">
         <h1 class="mb-4">CCST LEVELUP SYSTEM</h1>
-        <form class="form-group d-flex flex-column w-50 bg-white p-4 rounded" action="controllers/register.php" method="POST">
+        <form class="form-group d-flex flex-column w-50 bg-white p-4 rounded" action="" method="POST">
             <h2 class="text-center font-weight-bold">CREATE ACCOUNT</h2>
             <p class="text-danger text-center font-weight-bold" id="errorMessage"></p>
             <label class="form-label" for="">

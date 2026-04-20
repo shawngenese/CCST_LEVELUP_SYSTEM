@@ -9,17 +9,18 @@
   <body class="bg-light">
     <div class="container d-flex align-items-center justify-content-center flex-column" style="min-height: 100dvh;">
         <h1 class="mb-4">CCST LEVELUP SYSTEM</h1>
-        <form class="form-group d-flex flex-column w-50 bg-white p-4 rounded" action="">
+        <form class="form-group d-flex flex-column w-50 bg-white p-4 rounded" action="" method="POST">
             <h2 class="text-center font-weight-bold">LOGIN</h2>
+            <p class="text-danger text-center font-weight-bold" id="errorMessage"></p>
             <label class="form-label" for="">
                 Email
-                <input class="form-control" type="text" name="" id="" placeholder="Email">
+                <input class="form-control" type="text" name="email" id="email" placeholder="Email">
             </label>
             <label class="form-label" for="">
                 Password
-                <input class="form-control" type="password" name="" id="" placeholder="Password">
+                <input class="form-control" type="password" name="password" id="password" placeholder="Password">
             </label>
-            <button class="btn btn-primary mt-3">LOGIN</button>
+            <button class="btn btn-primary mt-3" name="login" type="submit">LOGIN</button>
         </form>
         <p>Don't have an account? <a href="register.php">Create Account</a></p>
     </div>
@@ -27,7 +28,19 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script>
-        
+        const form = document.querySelector("form");
+        const errorMessage = document.querySelector("#errorMessage");
+
+        form.addEventListener("submit", (e) => {
+            const email = document.querySelector("#email").value;
+            const password = document.querySelector("#password").value;
+
+            if (email === "" || password === "") {
+                e.preventDefault();
+                errorMessage.innerHTML = "Please fill all fields.";
+                return;
+            }
+        });
     </script>
   </body>
 </html>

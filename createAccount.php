@@ -1,6 +1,6 @@
-<?php 
-session_start();
-include "../config.php";
+<?php
+
+include "config.php";
 
 if (isset($_POST['register'])) {
     $email = $_POST['email'];
@@ -12,10 +12,10 @@ if (isset($_POST['register'])) {
     $stmt->bind_param("ss", $email, $hashed_pass);
 
     if ($stmt->execute()) {
-        echo "Success! <a href='../login.php'>Login here</a>";
+        // echo '<script>alert("Account Created")</script>';
+        header("Location: login.php");
     } else {
         echo "Error: Email might already exist.";
     }
 }
-
 ?>
