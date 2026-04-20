@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 if (!isset($_SESSION['role'])) {
     header("Location: login.php");
     exit();    
@@ -27,7 +26,7 @@ if ($_SESSION['role'] !== 'user') {
             <h1 class="text-light">USER</h1>
         </div>
         <div class="nav-button">
-            <a class="btn btn-warning" href="../logout.php">LOGOUT</a>
+            <a class="btn btn-warning" href="logout.php">LOGOUT</a>
         </div>
     </div>
 <div class="container-fluid p-5">

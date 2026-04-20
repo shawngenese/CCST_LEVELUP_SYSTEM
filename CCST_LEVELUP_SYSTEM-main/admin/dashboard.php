@@ -1,10 +1,16 @@
 <?php
 session_start();
+include "read.php";
 
-if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
+if (!isset($_SESSION['role'])) {
     header("Location: login.php");
-    exit();
-}
+    exit();    
+
+}  
+if ($_SESSION['role'] !== 'admin') {
+    header("Location: login.php");
+    exit();  
+}    
 ?>
 
 <!doctype html>
@@ -23,7 +29,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
             <h1 class="text-light">ADMIN</h1>
         </div>
         <div class="nav-button">
-            <a class="btn btn-warning" href="../logout.php">LOGOUT</a>
+            <a class="btn btn-warning" href="logout.php">LOGOUT</a>
         </div>
     </div>
     <div class="container-fluid p-5">
@@ -40,6 +46,19 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
                     </tr>
                 </thead>
                 <tbody>
+                    <?php
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>" . $row['name'] . "</td>";
+                                echo "<td>" . $row['email'] . "</td>";
+                                echo "<td>" . $row['role'] . "</td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='3'>No data found</td></tr>";
+                        }
+                    ?>
                     <tr>
                         <td scope="row">Shawn</td>
                         <td>shawn@gmail.com</td>
